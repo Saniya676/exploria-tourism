@@ -17,6 +17,8 @@ import reviewRoutes from './routes/reviewRoutes.js';
 import favoriteRoutes from './routes/favoriteRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import statsRoutes from './routes/statsRoutes.js';
+import travelPlannerRoutes from './routes/travelPlannerRoutes.js';
+import notificationRoutes from './routes/notificationRoutes.js';
 
 // Middleware Imports
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
@@ -57,6 +59,8 @@ app.use('/api/reviews', reviewRoutes);
 app.use('/api/favorites', favoriteRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/stats', statsRoutes);
+app.use('/api/travel-planner', travelPlannerRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // Error Middlewares
 app.use(notFound);

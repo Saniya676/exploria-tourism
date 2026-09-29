@@ -51,6 +51,14 @@ export default function WeatherCard({ weather }) {
             <span className="font-bold">{weather.visibility} km</span>
           </div>
         </div>
+
+        {/* Recommendation Banner */}
+        {weather.recommendation && (
+          <div className="mt-4 p-3.5 bg-teal-500/20 border border-teal-400/40 rounded-2xl text-xs text-teal-200 font-medium flex items-center gap-2.5">
+            <span className="text-base">💡</span>
+            <span>{weather.recommendation}</span>
+          </div>
+        )}
       </div>
     </div>
   );

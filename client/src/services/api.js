@@ -144,3 +144,15 @@ export const adminService = {
   deleteUser: (id) => request(`/users/${id}`, { method: 'DELETE' }),
   getStats: () => request('/stats/admin')
 };
+
+// 13. AI Travel Planner
+export const travelPlannerService = {
+  generatePlan: (planData) => request('/travel-planner', { method: 'POST', body: JSON.stringify(planData) })
+};
+
+// 14. Notifications
+export const notificationService = {
+  getAll: () => request('/notifications'),
+  markAsRead: (id) => request(`/notifications/${id}/read`, { method: 'PUT' }),
+  markAllAsRead: () => request('/notifications/read-all', { method: 'PUT' })
+};

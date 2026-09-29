@@ -15,6 +15,7 @@ import Adventures from './pages/public/Adventures';
 import AdventureDetails from './pages/public/AdventureDetails';
 import WeatherPage from './pages/public/WeatherPage';
 import GuidesPage from './pages/public/GuidesPage';
+import TravelPlanner from './pages/public/TravelPlanner';
 import About from './pages/public/About';
 import Contact from './pages/public/Contact';
 import FAQ from './pages/public/FAQ';
@@ -26,6 +27,7 @@ import UserDashboard from './pages/user/UserDashboard';
 import MyProfile from './pages/user/MyProfile';
 import MyInquiries from './pages/user/MyInquiries';
 import MyBookings from './pages/user/MyBookings';
+import MyTrips from './pages/user/MyTrips';
 import FavoritesPage from './pages/user/FavoritesPage';
 
 // Guide Pages
@@ -61,6 +63,7 @@ export default function App() {
         <Route path="/adventures/:id" element={<AdventureDetails />} />
         <Route path="/weather" element={<WeatherPage />} />
         <Route path="/guides" element={<GuidesPage />} />
+        <Route path="/travel-planner" element={<TravelPlanner />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/faq" element={<FAQ />} />
@@ -75,6 +78,7 @@ export default function App() {
         <Route path="/dashboard/profile" element={<MyProfile />} />
         <Route path="/dashboard/inquiries" element={<MyInquiries />} />
         <Route path="/dashboard/bookings" element={<MyBookings />} />
+        <Route path="/my-trips" element={<MyTrips />} />
       </Route>
 
       {/* Guide Dashboard Routes */}

@@ -29,6 +29,15 @@ export async function createBooking(req, res, next) {
       [booking_code, req.user.id, package_id, guide_id || null, travel_date, count, total_amount, special_notes || '']
     );
 
+    // Trigger Notification
+    const { createNotification } = await import('./notificationController.js');
+    await createNotification(
+      req.user.id,
+      'Booking Confirmed!',
+      `Your reservation for ${pkg.title} (${booking_code}) has been confirmed. Total: $${total_amount}`,
+      'BOOKING'
+    );
+
     const created = await queryOne(
       `SELECT b.*, p.title as package_title, p.cover_image as package_image 
        FROM bookings b 

@@ -48,6 +48,20 @@ export async function fetchWeather(city) {
   const matchedKey = Object.keys(MOCK_WEATHER_DATABASE).find(k => normalizedCity.includes(k) || k.includes(normalizedCity));
   const base = matchedKey ? MOCK_WEATHER_DATABASE[matchedKey] : MOCK_WEATHER_DATABASE['manali'];
 
+  const recommendation = base.temp > 25
+    ? 'Ideal warm weather for coastal water sports and beach excursions.'
+    : base.temp > 15
+    ? 'Pleasant climate, ideal for outdoor trekking, sightseeing, and mountain walks.'
+    : 'Cool alpine weather — wear insulated thermal layers for outdoor trails.';
+
+  const forecast = [
+    { day: 'Day 1', temp: base.temp, condition: base.condition, icon: base.icon },
+    { day: 'Day 2', temp: base.temp + 1, condition: 'Sunny', icon: '01d' },
+    { day: 'Day 3', temp: base.temp - 1, condition: 'Partly Cloudy', icon: '02d' },
+    { day: 'Day 4', temp: base.temp + 2, condition: 'Clear', icon: '01d' },
+    { day: 'Day 5', temp: base.temp, condition: 'Breezy', icon: '03d' }
+  ];
+
   return {
     city: city.charAt(0).toUpperCase() + city.slice(1),
     country: 'IN',
@@ -59,6 +73,8 @@ export async function fetchWeather(city) {
     wind_speed: base.wind_speed,
     visibility: base.visibility,
     icon: base.icon,
+    recommendation,
+    forecast,
     source: 'Exploria Intelligent Weather Engine (API Key Ready)'
   };
 }

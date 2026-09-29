@@ -85,11 +85,40 @@ export default function WeatherPage() {
       </div>
 
       {/* Weather Display Card */}
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-3xl mx-auto space-y-8">
         {loading ? (
           <div className="h-72 bg-slate-200 rounded-3xl animate-pulse" />
         ) : (
-          <WeatherCard weather={weather} />
+          <>
+            <WeatherCard weather={weather} />
+
+            {/* 5-Day Forecast Grid */}
+            {weather?.forecast && weather.forecast.length > 0 && (
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                  <Sun className="w-5 h-5 text-amber-500" /> 5-Day Weather Forecast
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                  {weather.forecast.map((dayItem, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-white border border-slate-200 p-4 rounded-2xl text-center space-y-2 shadow-sm hover:border-teal-400 transition"
+                    >
+                      <p className="text-xs font-bold text-slate-700">{dayItem.day}</p>
+                      <p className="text-[10px] text-slate-400">{dayItem.date}</p>
+                      <div className="text-2xl py-1">
+                        {dayItem.condition === 'Sunny' ? '☀️' : dayItem.condition === 'Rainy' ? '🌧️' : '⛅'}
+                      </div>
+                      <div className="text-xs font-black text-slate-900">
+                        {dayItem.temp_max}° <span className="text-slate-400 font-normal">{dayItem.temp_min}°</span>
+                      </div>
+                      <p className="text-[10px] text-teal-600 font-semibold truncate">{dayItem.condition}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

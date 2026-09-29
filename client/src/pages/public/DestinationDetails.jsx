@@ -5,6 +5,7 @@ import WeatherCard from '../../components/cards/WeatherCard';
 import PackageCard from '../../components/cards/PackageCard';
 import AdventureCard from '../../components/cards/AdventureCard';
 import GuideCard from '../../components/cards/GuideCard';
+import InteractiveMap from '../../components/common/InteractiveMap';
 import { MapPin, Calendar, DollarSign, Star, Compass, ArrowLeft, Shield, Sparkles } from 'lucide-react';
 
 export default function DestinationDetails() {
@@ -107,8 +108,15 @@ export default function DestinationDetails() {
           </div>
         </div>
 
-        <div className="lg:col-span-5">
+        <div className="lg:col-span-5 space-y-6">
           {weather && <WeatherCard weather={weather} />}
+
+          <div className="bg-white p-4 rounded-3xl shadow-sm border border-slate-200/80 space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+              <MapPin className="w-4 h-4 text-teal-600" /> Interactive Location Map
+            </h3>
+            <InteractiveMap destinations={[dest]} height="260px" zoom={9} />
+          </div>
         </div>
       </div>
 

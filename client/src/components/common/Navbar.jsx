@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Compass, Menu, X, User, LogOut, LayoutDashboard, Shield, MapPin, Sparkles, Heart } from 'lucide-react';
+import NotificationBell from './NotificationBell';
+import { Compass, Menu, X, User, LogOut, LayoutDashboard, Shield, MapPin, Sparkles, Heart, Sparkle } from 'lucide-react';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -15,6 +16,7 @@ export default function Navbar() {
     { name: 'Destinations', path: '/destinations' },
     { name: 'Adventures', path: '/adventures' },
     { name: 'Packages', path: '/packages' },
+    { name: 'AI Planner', path: '/travel-planner' },
     { name: 'Weather', path: '/weather' },
     { name: 'Guides', path: '/guides' },
     { name: 'About', path: '/about' },
@@ -76,11 +78,13 @@ export default function Navbar() {
           {/* Auth Actions */}
           <div className="hidden lg:flex items-center gap-3">
             {user ? (
-              <div className="relative">
-                <button
-                  onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                  className="flex items-center gap-3 bg-slate-800/80 border border-slate-700/80 hover:border-teal-500/50 p-1.5 pr-4 rounded-full transition"
-                >
+              <div className="flex items-center gap-3">
+                <NotificationBell />
+                <div className="relative">
+                  <button
+                    onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+                    className="flex items-center gap-3 bg-slate-800/80 border border-slate-700/80 hover:border-teal-500/50 p-1.5 pr-4 rounded-full transition"
+                  >
                   <img
                     src={user.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=200'}
                     alt={user.name}
@@ -130,6 +134,7 @@ export default function Navbar() {
                   </div>
                 )}
               </div>
+            </div>
             ) : (
               <div className="flex items-center gap-2">
                 <Link

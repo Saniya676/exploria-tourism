@@ -44,6 +44,8 @@ CREATE TABLE IF NOT EXISTS destinations (
     best_time VARCHAR(100) NOT NULL,
     estimated_budget DECIMAL(10, 2) NOT NULL,
     popular_activities TEXT NOT NULL, -- Stored as JSON array
+    latitude DECIMAL(10, 8) DEFAULT 32.2432,
+    longitude DECIMAL(11, 8) DEFAULT 77.1892,
     featured BOOLEAN DEFAULT FALSE,
     rating DECIMAL(3, 2) DEFAULT 4.80,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -199,4 +201,16 @@ CREATE TABLE IF NOT EXISTS chat_messages (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- 14. Notifications Table
+CREATE TABLE IF NOT EXISTS notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    message TEXT NOT NULL,
+    type VARCHAR(50) DEFAULT 'SYSTEM',
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

@@ -5,6 +5,7 @@ import DestinationCard from '../../components/cards/DestinationCard';
 import PackageCard from '../../components/cards/PackageCard';
 import GuideCard from '../../components/cards/GuideCard';
 import WeatherCard from '../../components/cards/WeatherCard';
+import InteractiveMap from '../../components/common/InteractiveMap';
 import {
   Compass,
   Search,
@@ -257,6 +258,55 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* AI TRAVEL PLANNER BANNER */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-r from-slate-900 via-slate-950 to-teal-950 border border-slate-800 rounded-3xl p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden shadow-2xl">
+          <div className="space-y-4 max-w-xl z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-teal-500/20 border border-teal-400/40 rounded-full text-xs font-bold text-teal-300">
+              <Sparkles className="w-4 h-4 text-teal-400" /> Smart Itinerary Generator
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight">
+              Create Tailored Trip Itineraries Powered By AI
+            </h2>
+            <p className="text-sm text-slate-300 leading-relaxed">
+              Tell us your destination, budget, group size, and interests. Exploria AI creates an instant day-by-day plan complete with weather tips and recommended local guides.
+            </p>
+            <Link
+              to="/travel-planner"
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white font-bold text-xs rounded-2xl shadow-xl shadow-teal-500/30 transition hover:scale-105"
+            >
+              <Sparkles className="w-4 h-4" /> Start Planning With AI
+            </Link>
+          </div>
+          <div className="relative z-10 w-full md:w-80 h-48 rounded-2xl overflow-hidden border border-slate-800 shadow-xl shrink-0">
+            <img
+              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800"
+              alt="AI Travel Planner"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-[2px] flex items-center justify-center">
+              <span className="px-4 py-2 bg-slate-900/90 text-teal-400 font-bold text-xs rounded-full border border-teal-500/30">
+                ✨ Custom Day-By-Day Plans
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* INTERACTIVE MAP PREVIEW */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between">
+          <div>
+            <span className="text-xs font-bold text-teal-600 uppercase tracking-widest block mb-1">Interactive Map</span>
+            <h2 className="text-3xl font-extrabold text-slate-900">Explore Destinations On Map</h2>
+          </div>
+          <Link to="/destinations" className="text-sm font-bold text-teal-600 hover:text-teal-700 flex items-center gap-1 mt-2 sm:mt-0">
+            View All Map Pins <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+        <InteractiveMap destinations={destinations} height="420px" zoom={5} />
       </section>
 
       {/* 6. WEATHER PREVIEW & GUIDE MATCH PROMO */}

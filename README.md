@@ -1,37 +1,46 @@
-# Exploria – Smart Tourism & Adventure Platform
+# Exploria V2 – Smart Tourism & Adventure Platform
 
 > **Tagline:** *"Explore More. Travel Smarter."*
 
-Exploria is a modern, fully functional, production-style full-stack tourism and adventure web application built from scratch to modernize travel discovery, real-time climate monitoring, guide matching, travel inquiries, and tour bookings.
+Exploria V2 is a commercial-grade, full-stack smart tourism and adventure platform built to modernize travel discovery, AI itinerary generation, real-time climate monitoring, interactive map navigation, guide matching, travel inquiries, notifications, and tour bookings.
 
 ---
 
-## 🌟 Key Features
+## 🌟 Exploria V2 Key Features
 
-1. **Destinations & Adventure Packages**
-   - Discover top travel hubs with estimated budget breakdowns, best seasons, and difficulty filters.
-   - Handcrafted multi-day packages with day-by-day itineraries, included/excluded services, and reviews.
+1. **🤖 AI Travel Planner (`/travel-planner`)**
+   - Personal itinerary generator powered by Google Gemini AI with a deterministic fallback engine.
+   - Tailors day-by-day morning/afternoon/evening schedules, budget breakdowns, activities, weather advice, and local guide recommendations based on travel style (Adventure, Family, Couple, Solo, Luxury, Cultural) and budget.
 
-2. **Intelligent Guide Matching System**
-   - Matches travelers with certified local mountain guides and scuba dive masters based on destination familiarity, activity specializations, budget, and traveler ratings.
+2. **🗺️ Interactive OpenStreetMap Navigation (Leaflet)**
+   - Interactive maps embedded across destination discovery and detail pages using Leaflet & OpenStreetMap.
+   - View destination geographical pins, popups with photos, and budget estimations without paid map dependencies.
 
-3. **Real-Time Weather Integration**
-   - Integrated OpenWeatherMap API with an intelligent climate fallback engine for live temperature, humidity, wind speeds, and visibility.
+3. **☀️ Advanced Weather Radar & 5-Day Forecast**
+   - Live weather monitoring with OpenWeatherMap API integration and fallback weather data.
+   - Features 5-day climate forecasts, wind speed, humidity, visibility, and smart travel recommendations (e.g., *"Good day for outdoor activities"*).
 
-4. **Authentic Inquiry Management System**
-   - Submits travel inquiries and generates unique backend reference IDs (`EXP-XXXXXXXX`).
-   - Admin management panel for searching, filtering, and resolving inquiries.
+4. **⚡ Smart Guide Matching Engine V2**
+   - Intelligent guide matching algorithm that calculates actual match percentages (e.g., `92% Match`) based on destination, activity specializations, budget, language, and traveler ratings.
 
-5. **Integrated Tourism Chatbot**
-   - Floating assistant across the platform providing tourism FAQ answers, package suggestions, and AI provider integration readiness (`.env` AI key support).
+5. **🔔 Real-Time Notification Center**
+   - Database-backed notification engine with an interactive navbar notification bell and unread counter badge.
+   - Automatically notifies travelers on booking confirmations, trip status changes, guide approvals, and inquiry updates.
 
-6. **Interactive Demo Booking Flow**
-   - Dynamic total calculation (`price * travelers_count`), optional guide selection, special host notes, and instant test payment checkout generating unique booking codes (`BK-XXXXXXXX`).
+6. **🧳 My Trips Portal (`/my-trips`)**
+   - Dedicated trip dashboard tracking active, upcoming, completed, and cancelled bookings with unique reference codes (`BK-XXXXXXXX`), total cost calculation, and guide assignment.
 
-7. **Role-Based Authentication & Dashboards**
-   - **USER:** Personal profile, active bookings, inquiry tracking, saved favorite packages.
-   - **GUIDE:** Guide profile setup, location & hourly rates, incoming request approval, assigned bookings, availability toggling (`AVAILABLE` / `BUSY` / `UNAVAILABLE`).
-   - **ADMIN:** Comprehensive analytics dashboard, revenue metrics, full CRUD for Users, Guides, Destinations, Adventures, Packages, Inquiries, Bookings, and Reviews.
+7. **🌄 Smart Destination & Adventure Discovery**
+   - Filter destinations and adventure packages by search keywords, category, max budget, difficulty level, and best seasons.
+   - Seamless toggle between Grid View and Interactive Map View.
+
+8. **💬 AI Tourism Assistant Chatbot**
+   - Persistent floating chatbot with quick action buttons ("Plan My Trip", "Find Destinations", "Check Weather", "Find Guides").
+
+9. **🛡️ Role-Based Authentication & Dashboards**
+   - **USER:** Personal profile, My Trips portal, saved favorite packages & destinations, inquiry tracking.
+   - **GUIDE:** Guide profile setup, availability toggling (`AVAILABLE` / `BUSY` / `UNAVAILABLE`), location rates, assigned trips.
+   - **ADMIN:** Commercial analytics dashboard, total revenue KPIs, bookings over time, popular destinations, full CRUD management for all entities.
 
 ---
 
@@ -39,19 +48,21 @@ Exploria is a modern, fully functional, production-style full-stack tourism and 
 
 ### Frontend
 - **Framework:** React 18 (Vite)
-- **Styling:** Tailwind CSS (Vanilla CSS utilities & custom glassmorphism)
+- **Maps:** Leaflet & React-Leaflet (OpenStreetMap)
+- **Styling:** Tailwind CSS & Custom Design System
 - **Routing:** React Router v6
-- **Icons & Animations:** Lucide React icons & Framer Motion
+- **Icons & UI:** Lucide React & Framer Motion
 
 ### Backend
 - **Runtime:** Node.js (ES Modules)
 - **Framework:** Express.js REST API
+- **AI Integration:** Google Gemini AI API (`@google/genai`) with fallback engine
 - **Authentication:** JWT (JSON Web Tokens) & BCrypt password hashing
 - **Middleware:** CORS, Error Handler, Role-Based Access Control (RBAC)
 
 ### Database
 - **Relational Schema:** Standard MySQL relational structure with Foreign Key constraints (`database/schema.sql`).
-- **Zero-Friction Fallback:** Built-in MySQL driver (`mysql2`) with automatic local SQLite database initialization if MySQL is offline.
+- **Zero-Friction Fallback:** Built-in MySQL driver (`mysql2`) with automatic local SQLite database initialization if MySQL is offline (`database/exploria_local.db`).
 
 ---
 
@@ -61,30 +72,29 @@ Exploria is a modern, fully functional, production-style full-stack tourism and 
 Tourism/
 ├── client/                     # React + Vite Frontend
 │   ├── src/
-│   │   ├── components/         # Reusable Cards, Modals, Navbar, Footer, ChatWidget
+│   │   ├── components/         # Cards, Maps, NotificationBell, Navbar, Footer, ChatWidget
 │   │   ├── context/            # AuthContext, ToastContext, SavedContext
 │   │   ├── layouts/            # MainLayout, DashboardLayout
-│   │   ├── pages/              # Public, User, Guide & Admin pages
-│   │   ├── services/           # REST API client services
+│   │   ├── pages/              # Public (TravelPlanner, Destinations, Weather, Home), User (MyTrips, Favorites), Guide & Admin pages
+│   │   ├── services/           # REST API client services (travelPlannerService, notificationService, etc.)
 │   │   ├── App.jsx             # App Routing
 │   │   ├── main.jsx            # React Entry Point
 │   │   └── index.css           # Tailwind & Custom CSS
 ├── server/                     # Express REST API Backend
 │   ├── src/
 │   │   ├── config/             # DB connector & Environment config
-│   │   ├── controllers/        # Auth, Destination, Package, Guide, Booking, Inquiry, Weather, Chat, Review, Stats
+│   │   ├── controllers/        # Auth, TravelPlanner, Notification, Destination, Package, Guide, Booking, Inquiry, Weather, Chat, Review, Stats
 │   │   ├── middleware/         # Auth JWT, RBAC & Error handlers
 │   │   ├── models/             # Schema & Seed data initializer
 │   │   ├── routes/             # REST Route definitions
-│   │   ├── services/           # Weather, Chatbot & Guide Matching algorithms
+│   │   ├── services/           # TravelPlanner, Weather, Notification, Chatbot & Guide Matching algorithms
 │   │   └── server.js           # Main Express server entry point
 ├── database/                   # Database Scripts
-│   ├── schema.sql              # MySQL / Relational schema definition
+│   ├── schema.sql              # Relational schema definition (with spatial lat/lng & notifications)
 │   └── seed.sql                # Seed data SQL script
 ├── .env.example                # Environment variables template
-├── .gitignore                  # Git ignore rules
 ├── package.json                # Monorepo runner
-└── README.md                   # Documentation
+└── README.md                   # Exploria V2 Documentation
 ```
 
 ---
@@ -106,7 +116,7 @@ Tourism/
 - npm (v9+ recommended)
 
 ### 2. Installation
-Clone the repository and run setup from the root directory:
+Clone the repository and run setup:
 
 ```bash
 # Install all dependencies across monorepo
@@ -127,6 +137,7 @@ DB_USER=root
 DB_PASSWORD=rootpassword
 DB_NAME=exploria_db
 WEATHER_API_KEY=your_openweather_api_key
+GEMINI_API_KEY=your_google_gemini_api_key
 ```
 
 ### 4. Running the Project Locally
@@ -145,6 +156,11 @@ npm run dev
 
 ## 📡 Key REST API Endpoints
 
+### AI Travel Planner & Notifications V2
+- `POST /api/travel-planner` - Generate AI travel itinerary
+- `GET /api/notifications` - Fetch user notifications
+- `PUT /api/notifications/:id/read` - Mark notification as read
+
 ### Auth
 - `POST /api/auth/register` - Create user or guide account
 - `POST /api/auth/login` - Authenticate and return JWT token
@@ -159,16 +175,18 @@ npm run dev
 
 ### Inquiries, Weather & Chat
 - `POST /api/inquiries` - Submit travel inquiry (`EXP-XXXXXXXX`)
-- `GET /api/weather?city=...` - Fetch live weather forecast
+- `GET /api/weather?city=...` - Fetch live weather & 5-day forecast
 - `POST /api/chat` - Interact with AI & FAQ chatbot
 
 ### Bookings & Admin
-- `POST /api/bookings` - Create tour reservation (`BK-XXXXXXXX`)
+- `POST /api/bookings` - Create tour reservation (`BK-XXXXXXXX`) with auto-notification
 - `GET /api/stats/admin` - Fetch admin KPI metrics & analytics
 
 ---
 
-## 🛡️ Security & GitHub Readiness
+## 🛡️ Security & Production Quality Standards
 - Secrets and API keys stored exclusively in `.env` (excluded via `.gitignore`).
 - Password hashing powered by **bcryptjs**.
 - Role-based route authorization guards on both API middleware and React frontend layouts.
+- Zero fake/static placeholders; all views sync with relational backend APIs and SQLite database.
+
