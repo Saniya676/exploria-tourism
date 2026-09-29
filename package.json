@@ -1,0 +1,17 @@
+{
+  "name": "exploria-monorepo",
+  "version": "1.0.0",
+  "description": "Exploria – Smart Tourism & Adventure Platform",
+  "private": true,
+  "scripts": {
+    "setup": "npm install && cd server && npm install && cd ../client && npm install",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "seed": "cd server && npm run seed",
+    "build": "cd client && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
